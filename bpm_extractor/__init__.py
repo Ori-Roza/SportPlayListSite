@@ -58,7 +58,7 @@ class BMPExtractor(object):
         bpm_avg = median(chosen_samples)
         chosen_length = len(chosen_samples)
         for i in xrange(chosen_length):
-            if chosen_samples[i] > HIGH_BPM_TRESHOLD:
+            if chosen_samples[i] > HIGH_BPM_THRESHOLD:
                 high_bpm_counter += 1
                 seq_counter += 1
                 if seq_counter > 5:
