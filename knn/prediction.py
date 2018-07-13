@@ -5,6 +5,7 @@ __author__ = "Ori Roza"
 
 def predict(neighbors):
     classes_vote = {}
+    print neighbors
     for x in range(len(neighbors)):
         response = neighbors[x][-1]
         if response in classes_vote:

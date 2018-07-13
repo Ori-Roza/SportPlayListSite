@@ -27,5 +27,5 @@ def load_dataset(audio_db, new_song=None):
 
     else:
         training_set = dataset
-        test_set.append([new_song[0], new_song[1], new_song[2], new_song[3]])
+        test_set.append([new_song[0], new_song[1], new_song[2]])
     return training_set, test_set

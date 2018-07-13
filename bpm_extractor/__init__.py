@@ -49,7 +49,6 @@ class BMPExtractor(object):
             * Amount of high BPM values sequence (more than 5 in sequence)
         """
         high_bpm_counter = 0
-        low_bpm_counter = 0
         seq_counter = 0
         high_bpm_sequence = 0
         chosen_samples = samples[: SAMPLES_QUANTITY]  # last X samples
@@ -63,7 +62,6 @@ class BMPExtractor(object):
                 if seq_counter > 5:
                     high_bpm_sequence += 1
             else:
-                low_bpm_counter += 1
                 seq_counter = 0
 
         self.delete_wav()

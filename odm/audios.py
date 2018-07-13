@@ -11,8 +11,8 @@ class Audios(object):
         self._client = MongoClient(*MONGO_SERVER)
         self.audios_db = self._client['audios_db']
 
-    def _predict_rhythmic(self, bpm_avg, bpm_counter, are_bigger_high_points, high_bpm_sequence):
-        new_audio_set = [bpm_avg, bpm_counter, are_bigger_high_points, high_bpm_sequence]
+    def _predict_rhythmic(self, bpm_avg, bpm_counter, high_bpm_sequence):
+        new_audio_set = [bpm_avg, bpm_counter, high_bpm_sequence]
         if os.path.exists(GOOD_DATASET_PATH):
             with open(GOOD_DATASET_PATH, "rb") as f:
                 is_rhythmic = classifier.run(self.audios_db, prepared_dataset=f, new_song=new_audio_set)
@@ -56,6 +56,8 @@ class Audios(object):
                 else:
                     # Use the magic
                     is_rhythmic = self._predict_rhythmic(bpm_avg, bpm_counter, high_bpm_sequence)
+
+                print "Is %s rhythmic? %s" % (audio_name, bool(is_rhythmic))
 
                 self.audios_db["files"].insert_one({
                     "audio_name": audio_name,
