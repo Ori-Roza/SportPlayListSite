@@ -68,7 +68,7 @@ class BMPExtractor(object):
                 seq_counter = 0
 
         self.delete_wav()
-        return (high_bpm_counter * 100) / chosen_length, int(round(bpm_avg)), int(high_bpm_counter > low_bpm_counter), high_bpm_sequence
+        return (high_bpm_counter * 100) / chosen_length, int(round(bpm_avg)), high_bpm_sequence
 
     def delete_wav(self):
         try:

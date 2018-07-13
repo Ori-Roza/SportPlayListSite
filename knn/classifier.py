@@ -4,7 +4,7 @@ from conf import ACCURACY_TRESHOLD, GOOD_DATASET_PATH, K_POINTS
 from data import load_dataset
 from knn import get_neighbors
 from prediction import get_accuracy, predict
-from pickle import dump
+
 
 __author__ = "Ori Roza"
 
@@ -12,7 +12,7 @@ __author__ = "Ori Roza"
 def dump_best_accuracy(accuracy, dataset):
     if accuracy >= ACCURACY_TRESHOLD:
         with open(GOOD_DATASET_PATH, "wb") as f:
-            dump(dataset, f)
+            pickle.dump(dataset, f)
             return True
     return False
 
@@ -40,5 +40,5 @@ def run(audio_db, prepared_dataset=None, new_song=None):
             return True
         return False
     else:
-        neighbors = get_neighbors(training_set, test_set[0], k)
+        neighbors = get_neighbors(training_set, test_set[0], K_POINTS)
         return predict(neighbors)

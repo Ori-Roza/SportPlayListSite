@@ -9,7 +9,7 @@ def create_dataset(audio_db):
     audios = audio_db["files"].find()
     for audio in audios:
         rhytmic = TEMPOS.RHYTHMIC if audio["to_sport_list"] else TEMPOS.NON_RHYTHMIC
-        parsed.append([audio["bpm_avg"], audio["bpm_counter"], audio["are_bigger_high_points"], audio["high_bpm_sequence"], rhytmic])
+        parsed.append([audio["bpm_avg"], audio["bpm_counter"], audio["high_bpm_sequence"], rhytmic])
     return parsed
 
 

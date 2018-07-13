@@ -24,22 +24,20 @@ class Audios(object):
     def _manual_insert():
         is_rhythmic = int(raw_input("Is rhythmic? "))
         if is_rhythmic == -1:  # If BPM does not seem right, correct it (if it's too high)
-            # Magic numbers
+            # Magic numbersK
             bpm_avg = 120
-            are_bigger_high_points = 0
             bpm_counter = 49
             is_rhythmic = 0
             high_bpm_sequence = 5
         elif is_rhythmic == 100:  # If BPM does not seem right, correct it (if it's too low)
             # Magic number
             bpm_avg = 121
-            are_bigger_high_points = 1
             bpm_counter = 51
             is_rhythmic = 1
             high_bpm_sequence = 100
         else:
             raise ValueError("Invalid option")
-        return bpm_avg, are_bigger_high_points, bpm_counter, is_rhythmic, high_bpm_sequence
+        return bpm_avg, bpm_counter, is_rhythmic, high_bpm_sequence
 
     def insert_new_audio(self, new_audio, train=False):
         try:
@@ -48,16 +46,16 @@ class Audios(object):
             if not self.does_song_exist(audio_path_in_server):
                 bpm_ex = BMPExtractor(new_audio)
                 samples = bpm_ex.get_bpm_samples().tolist()
-                bpm_counter, bpm_avg, are_bigger_high_points, high_bpm_sequence = bpm_ex.get_song_stats(samples)
+                bpm_counter, bpm_avg, high_bpm_sequence = bpm_ex.get_song_stats(samples)
                 if train:
                     # Add and analyze audios manually
-                    print "BPM AVG: %d, HIGH BPM PERCENTAGE: %d ARE BIGGER HIGH?: %d SEQ: %d\n" \
-                          % (bpm_avg, bpm_counter, are_bigger_high_points, high_bpm_sequence)
-                    bpm_avg, are_bigger_high_points, bpm_counter, is_rhythmic, high_bpm_sequence = self._manual_insert()
+                    print "BPM AVG: %d, HIGH BPM PERCENTAGE: %d SEQ: %d\n" \
+                          % (bpm_avg, bpm_counter, high_bpm_sequence)
+                    bpm_avg, bpm_counter, is_rhythmic, high_bpm_sequence = self._manual_insert()
 
                 else:
                     # Use the magic
-                    is_rhythmic = self._predict_rhythmic(bpm_avg, bpm_counter, are_bigger_high_points, high_bpm_sequence)
+                    is_rhythmic = self._predict_rhythmic(bpm_avg, bpm_counter, high_bpm_sequence)
 
                 self.audios_db["files"].insert_one({
                     "audio_name": audio_name,
@@ -65,7 +63,6 @@ class Audios(object):
                     "to_sport_list": is_rhythmic,
                     "bpm_avg": int(bpm_avg),
                     "bpm_counter": bpm_counter,
-                    "are_bigger_high_points": are_bigger_high_points,
                     "high_bpm_sequence": high_bpm_sequence,
                 })
                 return True
