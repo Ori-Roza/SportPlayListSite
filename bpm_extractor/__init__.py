@@ -46,7 +46,6 @@ class BMPExtractor(object):
         Returns:
             * BPM average
             * High BPM values percentage of an audio samples
-            * If number of high BPM values is bigger than number of low BPM values
             * Amount of high BPM values sequence (more than 5 in sequence)
         """
         high_bpm_counter = 0
