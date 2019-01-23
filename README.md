@@ -1,5 +1,5 @@
 # SportPlayListSite
-Flask app that shows only rhythmic songs for sport using KNN algorithm model.
+Flask app that shows only rhythmic songs for a sport playlist using KNN algorithm model.
 
 Aubio Library has been used for analyzing Audio files.
 The BPM extractor is not that accurate. (That's why I've added data correction option)
