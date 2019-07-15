@@ -4,7 +4,7 @@ Flask app that shows only rhythmic songs for a sport playlist using KNN algorith
 Aubio Library has been used for analyzing Audio files.
 The BPM extractor is not that accurate. (That's why I've added data correction option)
 
-KNN has been used for predict whether a song is rhythmic.
+KNN has been used for predict whether a song is rhythmic or not.
 
 I took the example from:
  https://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/
